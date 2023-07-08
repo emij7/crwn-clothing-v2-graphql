@@ -1,13 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 
-import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
 import { gql, useQuery } from "@apollo/client";
 
 export const CategoriesContext = createContext({
   categoriesMap: {},
 });
 
-const COLLENTIONS = gql`
+const COLLECTIONS = gql`
   query {
     collections {
       id
@@ -23,7 +22,7 @@ const COLLENTIONS = gql`
 `;
 
 export const CategoriesProvider = ({ children }) => {
-  const { loading, error, data } = useQuery(COLLENTIONS);
+  const { loading, data } = useQuery(COLLECTIONS);
   const [categoriesMap, setCategoriesMap] = useState({});
   useEffect(() => {
     if (data) {
